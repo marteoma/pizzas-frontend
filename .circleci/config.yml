@@ -49,7 +49,7 @@ jobs:
       - aws-cli/setup
       - run:
           name: Deploy built files to S3
-          command: aws s3 cp build/* s3://pizzas-front --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers --recursive
+          command: cd build && aws s3 cp . s3://pizzas-front --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers --recursive
 workflows:
   version: 2
   deploy:
