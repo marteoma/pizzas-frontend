@@ -2,7 +2,7 @@ version: 2.1
 nodejs: &nodejs
   working_directory: ~/project
   docker:
-    - image: node:12.14.1-alpine
+    - image: circleci/node:12
   environment:
     REACT_APP_API_URL: $BACKEND
     CI: true
