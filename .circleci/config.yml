@@ -5,7 +5,6 @@ nodejs: &nodejs
     - image: circleci/node:12
   environment:
     REACT_APP_API_URL: $BACKEND
-    CI: true
 jobs:
   install:
     <<: *nodejs
@@ -35,7 +34,7 @@ jobs:
           at: ~/project
       - run:
           name: Build deployable files
-          command: npm run build && ls
+          command: CI=false npm run build && ls
       - persist_to_workspace:
           root: ~/project
           paths: .
