@@ -149,7 +149,7 @@ class PizzaBuilder extends Component
   savePizzaConfiguration = () =>
   {
     //Depending on the confirmation number, different operations:
-    if(this.props.pizzaBuild.confirmationNumber != 0)
+    if(this.props.pizzaBuild.confirmationNumber !== 0)
     {
       axios.put('/savedPizza/' + this.props.pizzaBuild.confirmationNumber + ".json", {pizzaComposition: this.props.pizzaComposition})
       .then((response) => {

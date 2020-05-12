@@ -36,7 +36,7 @@ class PizzaLoader extends Component
   fetchPizzaInfo = (token) =>
   {
     //Just so that not all info is fetched
-    if(token == "")
+    if(token === "")
     {
       token = "1";
     }
@@ -47,7 +47,7 @@ class PizzaLoader extends Component
       this.setState({loading: false});
 
       //Not null - a Pizza was found then
-      if(response.data && response.data != null)
+      if(response.data && response.data !== null)
       {
         this.props.loadPizzaComposition(response.data.pizzaComposition, token);
       }

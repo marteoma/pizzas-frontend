@@ -32,7 +32,7 @@ const IngredientBlock = (props) => {
   let text = "";
   let color = {color: 'black'};
 
-  if(props.pizzaConfirmationNumber != 0)
+  if(props.pizzaConfirmationNumber !== 0)
   {
     if(!props.savingEnabled)
     {

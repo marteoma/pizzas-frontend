@@ -258,10 +258,10 @@ class CheckoutPage extends Component
       obj.regular_client = replacedItems["4"].regular_client;
       obj.coupon_code = replacedItems["5"].coupon_code;
 
-      if (obj.regular_client == ""){
+      if (obj.regular_client === ""){
         obj.regular_client = false;
       }
-      if(obj.delivery == ""){
+      if(obj.delivery === ""){
         obj.delivery = "delivered";
       }
 
@@ -272,7 +272,7 @@ class CheckoutPage extends Component
         JSON.stringify(merged),
         { headers: { 'Content-Type': 'application/json' } }
       )
-      if(response.status == 201){
+      if(response.status === 201){
         alert("order successfully sent")
         console.log(response) 
       } else {
@@ -497,7 +497,7 @@ class CheckoutPage extends Component
         <div className="errorMsgs">
           {
             this.state.errorMessages.map((errorMsg, index) => {
-              if(errorMsg != '')
+              if(errorMsg !== '')
               {
                 return <h2 key={'error'+index}>{errorMsg}</h2>;
               }
