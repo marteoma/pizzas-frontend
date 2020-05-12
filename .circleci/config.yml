@@ -1,0 +1,52 @@
+version: 2.1
+nodejs: &nodejs
+  working_directory: ~/project
+  docker:
+    - image: node:12.14.1-alpine
+  environment:
+    REACT_APP_API_URL: $BACKEND
+    CI: true
+jobs:
+  install:
+    <<: *nodejs
+    steps:
+      - checkout
+      - run:
+          name: Charge environment variables
+          command: echo "REACT_APP_API_URL=$REACT_APP_API_URL" > .env
+      - run:
+          name: Install nodejs packages
+          command: npm ci
+      - persist_to_workspace:
+          root: ~/project
+          paths: .
+  test:
+    <<: *nodejs
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Run unit tests
+          command: npm t
+  build:
+    <<: *nodejs
+    steps:
+      - attach_workspace:
+          at: ~/project
+      - run:
+          name: Build deployable files
+          command: npm run build
+      - persist_to_workspace:
+          root: ~/project
+          paths: .
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - install
+      - test:
+          requires:
+            - install
+      - build:
+          requires:
+            - test
