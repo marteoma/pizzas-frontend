@@ -16,7 +16,7 @@ jobs:
           command: echo "REACT_APP_API_URL=$REACT_APP_API_URL" > .env
       - run:
           name: Install nodejs packages
-          command: ls && npm ci
+          command: npm ci
       - persist_to_workspace:
           root: ~/project
           paths: .
@@ -35,7 +35,7 @@ jobs:
           at: ~/project
       - run:
           name: Build deployable files
-          command: npm run build
+          command: npm run build && ls
       - persist_to_workspace:
           root: ~/project
           paths: .
