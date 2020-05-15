@@ -32,8 +32,7 @@ jobs:
       - run:
           name: Put environment variables
           command: | 
-            echo $BACKEND
-            echo "REACT_APP_API_URL=$BACKEND" > .env
+            echo "REACT_APP_API_URL=localhost" > .env
             cat .env
       - run:
           name: Build deployable files
