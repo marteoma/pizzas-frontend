@@ -3,8 +3,6 @@ nodejs: &nodejs
   working_directory: ~/project
   docker:
     - image: circleci/node:12
-  # environment:
-  #   REACT_APP_API_URL: $BACKEND
 orbs:
   aws-cli: circleci/aws-cli@1.0.0
 jobs:
@@ -12,9 +10,6 @@ jobs:
     <<: *nodejs
     steps:
       - checkout
-      # - run:
-      #     name: Charge environment variables
-      #     command: echo "REACT_APP_API_URL=$REACT_APP_API_URL" > .env
       - run:
           name: Install nodejs packages
           command: npm ci
@@ -35,8 +30,11 @@ jobs:
       - attach_workspace:
           at: ~/project
       - run:
+          name: Put environment variables
+          command: echo "REACT_APP_API_URL=$BACKEND" > .env      
+      - run:
           name: Build deployable files
-          command: CI=false npm run build && ls
+          command: CI=false npm run build
       - persist_to_workspace:
           root: ~/project
           paths: .
@@ -49,7 +47,7 @@ jobs:
       - aws-cli/setup
       - run:
           name: Deploy built files to S3
-          command: cd build && aws s3 cp . s3://pizzas-front --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers --recursive
+          command: cd build && aws s3 cp . s3://$BUCKET --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers --recursive
 workflows:
   version: 2
   deploy:
