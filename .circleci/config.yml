@@ -31,7 +31,10 @@ jobs:
           at: ~/project
       - run:
           name: Put environment variables
-          command: echo "REACT_APP_API_URL=$BACKEND" > fake && cat fake      
+          command: | 
+            echo $BACKEND
+            echo "REACT_APP_API_URL=$BACKEND" > .env
+            cat .env
       - run:
           name: Build deployable files
           command: CI=false npm run build
