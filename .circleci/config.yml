@@ -32,7 +32,7 @@ jobs:
       - run:
           name: Put environment variables
           command: | 
-            echo "REACT_APP_API_URL=localhost" > .env
+            echo "REACT_APP_API_URL=localhost" 
             cat .env
       - run:
           name: Build deployable files
