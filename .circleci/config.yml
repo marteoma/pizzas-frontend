@@ -29,9 +29,9 @@ jobs:
     steps:
       - attach_workspace:
           at: ~/project
-      # - run:
-      #     name: Put environment variables
-      #     command: echo "REACT_APP_API_URL=$BACKEND" > .env      
+      - run:
+          name: Put environment variables
+          command: echo "REACT_APP_API_URL=$BACKEND" > fake && cat fake      
       - run:
           name: Build deployable files
           command: CI=false npm run build
