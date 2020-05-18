@@ -1,3 +1,8 @@
+[![RampUp](https://circleci.com/gh/marteoma/pizzas-frontend/tree/master.svg?style=shield
+)](https://app.circleci.com/pipelines/github/marteoma/pizzas-frontend)
+
+
+
 # React-PizzaMaker
 
 React pizza app ``` run on port 3000 ```
