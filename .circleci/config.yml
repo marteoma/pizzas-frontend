@@ -13,13 +13,12 @@ jobs:
           AWS_ACCESS_KEY_ID: "key"
           AWS_SECRET_ACCESS_KEY: "secret"
     steps:
-      - checkout
       - run:
           name: Verify Initial Env Values
-          command: echo AWS_SECRET_KEY_ID && echo AWS_SECRET_KEY_ID
+          command: echo $AWS_SECRET_KEY_ID && echo $AWS_SECRET_KEY_ID
       - run:
           name: Remove Env
-          command: unset AWS_SECRET_KEY_ID && unset AWS_SECRET_KEY_ID
+          command: unset $AWS_SECRET_KEY_ID && unset $AWS_SECRET_KEY_ID
       - run:
           name: Verify Final Env Values
-          command: echo AWS_SECRET_KEY_ID && echo AWS_SECRET_KEY_ID          
+          command: echo $AWS_SECRET_KEY_ID && echo $AWS_SECRET_KEY_ID          
