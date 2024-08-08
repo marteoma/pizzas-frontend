@@ -1,65 +1,25 @@
 version: 2.1
-nodejs: &nodejs
-  working_directory: ~/project
-  docker:
-    - image: circleci/node:12
-orbs:
-  aws-cli: circleci/aws-cli@1.0.0
+
+workflows:
+  workflow:
+    jobs:
+      - env-scope-test
+
 jobs:
-  install:
-    <<: *nodejs
+  env-scope-test:
+    docker:
+      - image: cimg/base:2024.01-22.04
+        environment:
+          AWS_ACCESS_KEY_ID: "key"
+          AWS_SECRET_ACCESS_KEY: "secret"
     steps:
       - checkout
       - run:
-          name: Install nodejs packages
-          command: npm ci
-      - persist_to_workspace:
-          root: ~/project
-          paths: .
-  test:
-    <<: *nodejs
-    steps:
-      - attach_workspace:
-          at: ~/project
+          name: Verify Initial Env Values
+          command: echo AWS_SECRET_KEY_ID && echo AWS_SECRET_KEY_ID
       - run:
-          name: Run unit tests
-          command: npm t
-  build:
-    <<: *nodejs
-    steps:
-      - attach_workspace:
-          at: ~/project
+          name: Remove Env
+          command: unset AWS_SECRET_KEY_ID && unset AWS_SECRET_KEY_ID
       - run:
-          name: Put environment variables
-          command: | 
-            echo "REACT_APP_API_URL=$BACKEND" > .env
-      - run:
-          name: Build deployable files
-          command: CI=false npm run build
-      - persist_to_workspace:
-          root: ~/project
-          paths: .
-  deploy:
-    executor: aws-cli/default
-    steps:
-      - attach_workspace:
-          at: ~/project
-      - aws-cli/install
-      - aws-cli/setup
-      - run:
-          name: Deploy built files to S3
-          command: cd build && aws s3 cp . s3://$BUCKET --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers --recursive
-workflows:
-  version: 2
-  deploy:
-    jobs:
-      - install
-      - test:
-          requires:
-            - install
-      - build:
-          requires:
-            - test
-      - deploy:
-          requires:
-            - build
+          name: Verify Final Env Values
+          command: echo AWS_SECRET_KEY_ID && echo AWS_SECRET_KEY_ID          
