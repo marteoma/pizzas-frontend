@@ -14,6 +14,9 @@ jobs:
           AWS_SECRET_ACCESS_KEY: "secret"
     steps:
       - run:
+          name: Validation Step
+          command: echo "Validate this actually prints" && FOO=BAR && echo $FOO
+      - run:
           name: Verify Initial Env Values
           command: echo $AWS_SECRET_KEY_ID && echo $AWS_SECRET_KEY_ID
       - run:
