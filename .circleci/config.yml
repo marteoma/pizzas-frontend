@@ -9,8 +9,8 @@ jobs:
   env-scope-test:
     docker:
       - image: cimg/base:2024.01-22.04
-    environment:
-      AWS_ACCESS_KEY_ID: "key"
+        environment:
+          AWS_ACCESS_KEY_ID: "key"
     steps:
       - run:
           name: Verify Initial Env Values
