@@ -12,12 +12,24 @@ jobs:
         environment:
           AWS_ACCESS_KEY_ID: "key"
     steps:
+      #- run:
+       #   name: Verify Initial Env Values
+        #  command: echo ${AWS_ACCESS_KEY_ID}
+      #- run:
+      #    name: Remove Env
+      #    command: AWS_ACCESS_KEY_ID=KEY2 && echo ${AWS_ACCESS_KEY_ID}
+      #- run:
+      #    name: Verify Final Env Values
+#          command: echo ${AWS_ACCESS_KEY_ID}
       - run:
-          name: Verify Initial Env Values
-          command: echo ${AWS_ACCESS_KEY_ID}
+          name: Create new variable
+          command: NEWVARIABLE=HELLO
       - run:
-          name: Remove Env
-          command: AWS_ACCESS_KEY_ID=KEY2 && echo ${AWS_ACCESS_KEY_ID}
+          name: Verify New Variable
+          command: echo ${NEWVARIABLE}
       - run:
-          name: Verify Final Env Values
-          command: echo ${AWS_ACCESS_KEY_ID}
+          name: Change New Variable
+          command: NEWVARIABLE=WORLD
+      - run:
+          name: Verify New Variable AGAIN
+          command: echo ${NEWVARIABLE}
