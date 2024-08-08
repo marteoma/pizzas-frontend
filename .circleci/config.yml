@@ -9,9 +9,9 @@ jobs:
   env-scope-test:
     docker:
       - image: cimg/base:2024.01-22.04
-        environment:
-          AWS_ACCESS_KEY_ID: "key"
-          AWS_SECRET_ACCESS_KEY: "secret"
+    environment:
+      AWS_ACCESS_KEY_ID: "key"
+      AWS_SECRET_ACCESS_KEY: "secret"
     steps:
       - run:
           name: Validation Step
