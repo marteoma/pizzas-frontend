@@ -1,0 +1,25 @@
+version: 2.1
+
+workflows:
+  workflow:
+    jobs:
+      - env-scope-test
+
+jobs:
+  env-scope-test:
+    docker:
+      - image: cimg/base:2024.01-22.04
+        environment:
+          AWS_ACCESS_KEY_ID: "key"
+          AWS_SECRET_ACCESS_KEY: "secret"
+    steps:
+      - checkout
+      - run:
+          name: Verify Initial Env Values
+          command: echo AWS_SECRET_KEY_ID && echo AWS_SECRET_KEY_ID
+      - run:
+          name: Remove Env
+          command: unset AWS_SECRET_KEY_ID && unset AWS_SECRET_KEY_ID
+      - run:
+          name: Verify Final Env Values
+          command: echo AWS_SECRET_KEY_ID && echo AWS_SECRET_KEY_ID          
